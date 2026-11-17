@@ -1,0 +1,16 @@
+# Базовый уровень: запуск только при push в main и изменении HTML-файлов
+name: Basic Trigger
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '**.html'
+
+jobs:
+  test-html:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Сообщение об успешном пуше
+        run: echo "Успешный пуш HTML-файла"

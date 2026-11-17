@@ -1,0 +1,27 @@
+# Продвинутый уровень: релизные теги, PR и ручной запуск
+name: Release Pipeline
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+      - '!v*-beta*'
+  pull_request:
+    types: [opened, synchronize, closed]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Сборка
+        run: echo "Сборка проекта"
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    # Деплой только для релизного тега или смерженного PR
+    if: startsWith(github.ref, 'refs/tags/v') || github.event.pull_request.merged == true
+    steps:
+      - name: Деплой
+        run: echo "Деплой релиза"

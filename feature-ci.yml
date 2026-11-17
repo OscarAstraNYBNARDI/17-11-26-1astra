@@ -1,0 +1,24 @@
+# Средний уровень: feature-ветки (кроме wip) и PR в main, только для src/
+name: Feature CI
+
+on:
+  push:
+    branches:
+      - 'feature/**'
+      - '!feature/wip'
+    paths:
+      - 'src/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'src/**'
+
+jobs:
+  show-info:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Вывод коммита и ветки
+        run: |
+          echo "Commit: ${{ github.sha }}"
+          echo "Ref: ${{ github.ref }}"
